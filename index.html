@@ -15,6 +15,7 @@
     --sepia:#9B7A4E; --sepia-deep:#795B35; --muted:#8A7557;
     --line:rgba(40,32,26,.16);
     --ease:cubic-bezier(.16,.84,.3,1);
+    --ease-out:cubic-bezier(.23,1,.32,1); /* Emil's strong ease-out */
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -32,22 +33,21 @@
   .btn-out{background:transparent;color:var(--ink);border:1px solid rgba(40,32,26,.4)}
   .btn-out:hover{background:var(--ink);color:var(--cream)}
 
-  /* MOTION — Emil's rules: ease-out, one entrance on load, one dealt moment, no blanket scroll-fades */
+  /* MOTION — restrained, Emil-spec: ease-out, 450ms, 16px travel, transform+opacity only, fires once */
   .reveal-img{overflow:hidden}
-  /* hero enters once on load */
-  html.js .hero .reveal{opacity:0;transform:translateY(16px)}
-  html.js.loaded .hero .reveal{opacity:1;transform:none;transition:opacity .5s var(--ease),transform .5s var(--ease)}
-  html.js.loaded .hero .reveal.d2{transition-delay:.06s}
-  html.js.loaded .hero .reveal.d3{transition-delay:.12s}
-  html.js.loaded .hero .reveal.d4{transition-delay:.18s}
-  html.js.loaded .hero .hero-art.reveal{transition-delay:.14s;transition-duration:.65s}
-  /* the one dealt moment: the heritage timeline draws in when reached */
-  html.js .moment>div{opacity:0;transform:translateY(12px)}
-  html.js .moment.in>div{opacity:1;transform:none;transition:opacity .45s var(--ease),transform .45s var(--ease)}
-  html.js .moment.in>div:nth-child(2){transition-delay:.07s}
-  html.js .moment.in>div:nth-child(3){transition-delay:.14s}
+  html.js .reveal,html.js .reveal-img{opacity:0;transform:translateY(16px);transition:opacity .45s var(--ease-out),transform .45s var(--ease-out)}
+  html.js .reveal.in,html.js .reveal-img.in{opacity:1;transform:none}
+  html.js .reveal.d1,html.js .reveal-img.d1{transition-delay:.06s} html.js .reveal.d2,html.js .reveal-img.d2{transition-delay:.12s}
+  html.js .reveal.d3,html.js .reveal-img.d3{transition-delay:.18s} html.js .reveal.d4,html.js .reveal-img.d4{transition-delay:.24s}
+  /* gallery tiles cascade gently, not all at once */
+  html.js .gal-grid .reveal-img:nth-child(2){transition-delay:.05s} html.js .gal-grid .reveal-img:nth-child(3){transition-delay:.1s}
+  html.js .gal-grid .reveal-img:nth-child(4){transition-delay:.15s} html.js .gal-grid .reveal-img:nth-child(n+5){transition-delay:.08s}
+  /* the one dealt moment: the heritage timeline staggers in */
+  html.js .moment>div{opacity:0;transform:translateY(14px)}
+  html.js .moment.in>div{opacity:1;transform:none;transition:opacity .45s var(--ease-out),transform .45s var(--ease-out)}
+  html.js .moment.in>div:nth-child(2){transition-delay:.08s} html.js .moment.in>div:nth-child(3){transition-delay:.16s}
   @media (prefers-reduced-motion:reduce){
-    html.js .hero .reveal,html.js .moment>div{opacity:1!important;transform:none!important;transition:none!important}}
+    html.js .reveal,html.js .reveal-img,html.js .moment>div{opacity:1!important;transform:none!important;transition:none!important}}
 
   /* NAV */
   nav{position:fixed;top:0;left:0;right:0;z-index:30;transition:background .45s var(--ease),box-shadow .45s var(--ease)}
@@ -318,23 +318,17 @@
 <script>
   document.documentElement.classList.add('js');
   (function(){
-    var root = document.documentElement;
-    var moments = document.querySelectorAll('.moment');
+    var els = document.querySelectorAll('.reveal, .reveal-img, .moment');
     if(location.hash === '#static'){
-      root.classList.add('loaded');
-      moments.forEach(function(el){ el.classList.add('in'); });
+      els.forEach(function(el){ el.classList.add('in'); });
+    } else if('IntersectionObserver' in window){
+      // each block enters once as it reaches view; nothing re-animates on scroll-back
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+      els.forEach(function(el){ io.observe(el); });
     } else {
-      // hero enters once, on load
-      requestAnimationFrame(function(){ root.classList.add('loaded'); });
-      // the single dealt moment draws in when reached — nothing else moves on scroll
-      if('IntersectionObserver' in window){
-        var io = new IntersectionObserver(function(entries){
-          entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-        }, {threshold:0.3});
-        moments.forEach(function(el){ io.observe(el); });
-      } else {
-        moments.forEach(function(el){ el.classList.add('in'); });
-      }
+      els.forEach(function(el){ el.classList.add('in'); });
     }
     var nav = document.querySelector('nav');
     function onScroll(){ if(window.scrollY > 40){ nav.classList.add('scrolled'); } else { nav.classList.remove('scrolled'); } }
