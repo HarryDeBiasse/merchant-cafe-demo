@@ -25,21 +25,29 @@
   .eyebrow{font-family:'Inter';font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--sepia-deep);font-weight:600}
   .btn{display:inline-block;background:var(--ink);color:var(--cream);padding:14px 30px;border-radius:2px;font-weight:500;font-size:14px;letter-spacing:.03em;text-transform:uppercase;transition:.25s var(--ease);border:1px solid var(--ink)}
   .btn:hover{background:transparent;color:var(--ink)}
+  .btn:active{transform:scale(.97)}
+  .btn:focus-visible{outline:2px solid var(--sepia-deep);outline-offset:3px}
   .btn-cream{background:var(--cream);color:var(--ink);border-color:var(--cream)}
   .btn-cream:hover{background:transparent;color:var(--cream)}
   .btn-out{background:transparent;color:var(--ink);border:1px solid rgba(40,32,26,.4)}
   .btn-out:hover{background:var(--ink);color:var(--cream)}
 
-  /* MOTION */
-  html.js .reveal,html.js .reveal-img{opacity:0;transform:translateY(34px);transition:opacity 1.05s var(--ease),transform 1.05s var(--ease)}
-  html.js .reveal.in,html.js .reveal-img.in{opacity:1;transform:none}
-  html.js .reveal-img{overflow:hidden}
-  html.js .reveal-img img{transform:scale(1.14);transition:transform 1.5s var(--ease)}
-  html.js .reveal-img.in img{transform:scale(1)}
-  html.js .reveal.d1,html.js .reveal-img.d1{transition-delay:.09s} html.js .reveal.d2,html.js .reveal-img.d2{transition-delay:.18s}
-  html.js .reveal.d3,html.js .reveal-img.d3{transition-delay:.27s} html.js .reveal.d4,html.js .reveal-img.d4{transition-delay:.36s}
-  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-  @media (prefers-reduced-motion:reduce){html.js .reveal,html.js .reveal-img{opacity:1!important;transform:none!important}}
+  /* MOTION — Emil's rules: ease-out, one entrance on load, one dealt moment, no blanket scroll-fades */
+  .reveal-img{overflow:hidden}
+  /* hero enters once on load */
+  html.js .hero .reveal{opacity:0;transform:translateY(16px)}
+  html.js.loaded .hero .reveal{opacity:1;transform:none;transition:opacity .5s var(--ease),transform .5s var(--ease)}
+  html.js.loaded .hero .reveal.d2{transition-delay:.06s}
+  html.js.loaded .hero .reveal.d3{transition-delay:.12s}
+  html.js.loaded .hero .reveal.d4{transition-delay:.18s}
+  html.js.loaded .hero .hero-art.reveal{transition-delay:.14s;transition-duration:.65s}
+  /* the one dealt moment: the heritage timeline draws in when reached */
+  html.js .moment>div{opacity:0;transform:translateY(12px)}
+  html.js .moment.in>div{opacity:1;transform:none;transition:opacity .45s var(--ease),transform .45s var(--ease)}
+  html.js .moment.in>div:nth-child(2){transition-delay:.07s}
+  html.js .moment.in>div:nth-child(3){transition-delay:.14s}
+  @media (prefers-reduced-motion:reduce){
+    html.js .hero .reveal,html.js .moment>div{opacity:1!important;transform:none!important;transition:none!important}}
 
   /* NAV */
   nav{position:fixed;top:0;left:0;right:0;z-index:30;transition:background .45s var(--ease),box-shadow .45s var(--ease)}
@@ -94,8 +102,8 @@
   .menu .eyebrow{color:#D8C09A}
   .menu .section-head h2{color:var(--cream)}
   .menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
-  .m-card{border:1px solid rgba(246,239,221,.16);border-radius:3px;padding:38px 32px;transition:transform .35s var(--ease),background .35s var(--ease),border-color .35s}
-  .m-card:hover{background:rgba(246,239,221,.05);transform:translateY(-6px);border-color:rgba(155,122,78,.55)}
+  .m-card{border:1px solid rgba(246,239,221,.16);border-radius:3px;padding:38px 32px;transition:transform .22s var(--ease),background .22s var(--ease),border-color .22s}
+  .m-card:hover{background:rgba(246,239,221,.05);transform:translateY(-3px);border-color:rgba(155,122,78,.55)}
   .m-card .ico{font-family:'Fraunces',serif;font-size:32px;color:var(--sepia);margin-bottom:14px;letter-spacing:.02em}
   .m-card h3{font-size:22px;color:var(--cream);margin-bottom:12px}
   .m-card p{font-size:14.5px;opacity:.72;font-weight:300}
@@ -105,8 +113,8 @@
   .gallery{background:var(--paper);padding-bottom:40px}
   .gal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
   .gal-grid div{aspect-ratio:1;border-radius:3px;overflow:hidden}
-  .gal-grid img{width:100%;height:100%;object-fit:cover;display:block;filter:sepia(.34) saturate(.82) contrast(.97);transition:transform .7s var(--ease)}
-  .gal-grid div:hover img{transform:scale(1.07)}
+  .gal-grid img{width:100%;height:100%;object-fit:cover;display:block;filter:sepia(.34) saturate(.82) contrast(.97);transition:transform .45s var(--ease)}
+  .gal-grid div:hover img{transform:scale(1.03)}
 
   /* VISIT */
   .visit{background:var(--brown);color:var(--cream)}
@@ -202,7 +210,7 @@
         <p class="first reveal d2">This corner of Pottersville Road began as the Lindabery "Blue Knot" general store — the heart of the village, where neighbors came to trade, gather, and catch up. By 1900 it was also the town post office, run by three generations of the same family.</p>
         <p class="reveal d2">A century later it was carefully preserved as a bank, its original character kept intact, and it still stands within the Pottersville Village Historic District. Now it begins its next chapter — as a coffee house.</p>
         <p class="reveal d3">The name is no accident: we're <em>The Merchant</em>, a nod to the general store that started it all. Come for the coffee — stay for the room that remembers.</p>
-        <div class="heritage reveal d3">
+        <div class="heritage moment">
           <div><span>1890</span><small>Lindabery General Store</small></div>
           <div><span>1900</span><small>Village Post Office</small></div>
           <div><span>2026</span><small>The Merchant Café</small></div>
@@ -242,10 +250,14 @@
 <section class="gallery">
   <div class="wrap">
     <div class="gal-grid">
-      <div class="reveal-img d1"><img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=600&q=80&auto=format&fit=crop" alt="Latte art"></div>
-      <div class="reveal-img d2"><img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600&q=80&auto=format&fit=crop" alt="Cafe table"></div>
-      <div class="reveal-img d3"><img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600&q=80&auto=format&fit=crop" alt="Pastries"></div>
-      <div class="reveal-img d4"><img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=600&q=80&auto=format&fit=crop" alt="Coffee beans"></div>
+      <div class="reveal-img"><img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=600&q=80&auto=format&fit=crop" alt="Latte art in a ceramic cup"></div>
+      <div class="reveal-img"><img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600&q=80&auto=format&fit=crop" alt="Café table by a window"></div>
+      <div class="reveal-img"><img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600&q=80&auto=format&fit=crop" alt="Fresh-baked pastries"></div>
+      <div class="reveal-img"><img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=600&q=80&auto=format&fit=crop" alt="Roasted coffee beans"></div>
+      <div class="reveal-img"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80&auto=format&fit=crop" alt="Pouring an espresso"></div>
+      <div class="reveal-img"><img src="https://images.unsplash.com/photo-1498804103079-a6351b050096?w=600&q=80&auto=format&fit=crop" alt="Barista steaming milk"></div>
+      <div class="reveal-img"><img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=600&q=80&auto=format&fit=crop" alt="Warm café interior"></div>
+      <div class="reveal-img"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80&auto=format&fit=crop" alt="Flat white on a wooden counter"></div>
     </div>
   </div>
 </section>
@@ -306,16 +318,23 @@
 <script>
   document.documentElement.classList.add('js');
   (function(){
-    var reveals = document.querySelectorAll('.reveal, .reveal-img');
+    var root = document.documentElement;
+    var moments = document.querySelectorAll('.moment');
     if(location.hash === '#static'){
-      reveals.forEach(function(el){ el.classList.add('in'); });
-    } else if('IntersectionObserver' in window){
-      var io = new IntersectionObserver(function(entries){
-        entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-      }, {threshold:0.1, rootMargin:'0px 0px -6% 0px'});
-      reveals.forEach(function(el){ io.observe(el); });
+      root.classList.add('loaded');
+      moments.forEach(function(el){ el.classList.add('in'); });
     } else {
-      reveals.forEach(function(el){ el.classList.add('in'); });
+      // hero enters once, on load
+      requestAnimationFrame(function(){ root.classList.add('loaded'); });
+      // the single dealt moment draws in when reached — nothing else moves on scroll
+      if('IntersectionObserver' in window){
+        var io = new IntersectionObserver(function(entries){
+          entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+        }, {threshold:0.3});
+        moments.forEach(function(el){ io.observe(el); });
+      } else {
+        moments.forEach(function(el){ el.classList.add('in'); });
+      }
     }
     var nav = document.querySelector('nav');
     function onScroll(){ if(window.scrollY > 40){ nav.classList.add('scrolled'); } else { nav.classList.remove('scrolled'); } }
