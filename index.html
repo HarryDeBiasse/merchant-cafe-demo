@@ -70,9 +70,7 @@
   .hero-meta{margin-top:26px;font-size:13.5px;letter-spacing:.04em;color:var(--ink2);display:flex;gap:20px;flex-wrap:wrap}
   .hero-meta span{display:flex;align-items:center;gap:8px}
   .dot{width:5px;height:5px;border-radius:50%;background:var(--sepia);display:inline-block}
-  .hero-art img{width:100%;display:block;animation:floaty 7s ease-in-out infinite;
-    -webkit-mask-image:radial-gradient(ellipse 98% 99% at 50% 50%,#000 80%,transparent 100%);
-    mask-image:radial-gradient(ellipse 98% 99% at 50% 50%,#000 80%,transparent 100%)}
+  .hero-art img{width:100%;display:block}
 
   /* SECTION */
   section{padding:104px 0}
@@ -120,9 +118,9 @@
   .v-row .val{font-size:15px;opacity:.9}
   .v-cta{margin-top:32px;display:flex;gap:14px;flex-wrap:wrap}
   .map-card{aspect-ratio:1/1.05;border-radius:3px;background:
-    linear-gradient(rgba(51,38,26,.35),rgba(51,38,26,.55)),
-    url('https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=1000&q=80&auto=format&fit=crop') center/cover;
-    filter:sepia(.3);position:relative;overflow:hidden;box-shadow:0 30px 60px -34px rgba(0,0,0,.55)}
+    linear-gradient(rgba(40,30,18,.22),rgba(40,30,18,.5)),
+    url('church.jpg') center/cover;
+    filter:sepia(.45) saturate(.8) contrast(1.02);position:relative;overflow:hidden;box-shadow:0 30px 60px -34px rgba(0,0,0,.55)}
   .map-pin{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center}
   .map-pin .marker{width:14px;height:14px;border-radius:50%;background:var(--sepia);box-shadow:0 0 0 8px rgba(155,122,78,.3)}
   .map-pin b{font-family:'Fraunces';font-size:19px;margin-top:16px;font-weight:500}
@@ -186,7 +184,7 @@
         </div>
       </div>
       <div class="hero-art reveal">
-        <img src="merchant-building.png" alt="The Merchant — 11 Pottersville, historic building illustration">
+        <img src="merchant-building-flat.png" alt="The Merchant — 11 Pottersville, historic building illustration">
       </div>
     </div>
   </div>
@@ -268,9 +266,8 @@
       </div>
       <div class="map-card reveal-img d2">
         <div class="map-pin">
-          <div class="marker"></div>
-          <b>The Merchant</b>
-          <span>11 Pottersville Rd · Pottersville, NJ</span>
+          <b>Historic Pottersville</b>
+          <span>Somerset County · New Jersey</span>
         </div>
       </div>
     </div>
