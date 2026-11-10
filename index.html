@@ -28,10 +28,13 @@
   .btn-ghost:hover{background:var(--cream);color:var(--espresso);border-color:var(--cream)}
 
   /* ---- MOTION ---- */
-  html.js .reveal{opacity:0;transform:translateY(36px);transition:opacity 1.05s var(--ease),transform 1.05s var(--ease)}
-  html.js .reveal.in{opacity:1;transform:none}
-  html.js .reveal.d1{transition-delay:.09s} html.js .reveal.d2{transition-delay:.18s}
-  html.js .reveal.d3{transition-delay:.27s} html.js .reveal.d4{transition-delay:.36s}
+  html.js .reveal,html.js .reveal-img{opacity:0;transform:translateY(36px);transition:opacity 1.05s var(--ease),transform 1.05s var(--ease)}
+  html.js .reveal.in,html.js .reveal-img.in{opacity:1;transform:none}
+  html.js .reveal-img{overflow:hidden}
+  html.js .reveal-img img{transform:scale(1.16);transition:transform 1.5s var(--ease)}
+  html.js .reveal-img.in img{transform:scale(1)}
+  html.js .reveal.d1,html.js .reveal-img.d1{transition-delay:.09s} html.js .reveal.d2,html.js .reveal-img.d2{transition-delay:.18s}
+  html.js .reveal.d3,html.js .reveal-img.d3{transition-delay:.27s} html.js .reveal.d4,html.js .reveal-img.d4{transition-delay:.36s}
   @keyframes kenburns{from{transform:scale(1) translateY(0)}to{transform:scale(1.1) translateY(-1.5%)}}
   @media (prefers-reduced-motion:reduce){html.js .reveal{opacity:1!important;transform:none!important} .hero-bg{animation:none!important}}
 
@@ -167,7 +170,7 @@
     <div class="hero-content">
       <p class="eyebrow reveal d1">A Pottersville Landmark, Reawakened</p>
       <h1 class="reveal d2">Coffee, community &amp; <em>a little history.</em></h1>
-      <p class="lead reveal d3">Once a village bank, then a dentist's office — now a neighborhood coffee house pouring craft espresso and fresh-baked mornings on Pottersville Road.</p>
+      <p class="lead reveal d3">Once the village general store &amp; post office — now a neighborhood coffee house pouring craft espresso and fresh-baked mornings on Pottersville Road.</p>
       <form class="signup reveal d4" onsubmit="return false">
         <input type="email" placeholder="Enter your email">
         <button class="btn btn-ghost" type="submit">Notify me at opening</button>
@@ -185,19 +188,19 @@
 <section class="story" id="story">
   <div class="wrap">
     <div class="story-grid">
-      <div class="story-img reveal">
+      <div class="story-img reveal-img">
         <img src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?w=1000&q=80&auto=format&fit=crop" alt="Historic brick storefront">
       </div>
       <div class="story-text">
         <p class="eyebrow reveal">Our Story</p>
-        <h2 class="reveal d1">A century of Pottersville, served warm.</h2>
-        <p class="first reveal d2">The building at 11 Pottersville Road has always been where the town did its business — first as the village bank, later the local dentist's office. Generations passed through its doors.</p>
-        <p class="reveal d2">We're honoring that history, not erasing it: original character, restored and reimagined as a gathering place. The vault becomes a nook. The teller's counter becomes the bar. The name stays true to its roots — <em>The Merchant.</em></p>
-        <p class="reveal d3">Come for the coffee. Stay for the room that remembers.</p>
+        <h2 class="reveal d1">A village cornerstone since the 1800s.</h2>
+        <p class="first reveal d2">This corner of Pottersville Road began as the Lindabery "Blue Knot" general store — the heart of the village, where neighbors came to trade, gather, and catch up. By 1900 it was also the town post office, run by three generations of the same family.</p>
+        <p class="reveal d2">A century later it was carefully preserved as a bank, its original character kept intact, and it still stands within the Pottersville Village Historic District. Now it begins its next chapter — as a coffee house.</p>
+        <p class="reveal d3">The name is no accident: we're <em>The Merchant</em>, a nod to the general store that started it all. Come for the coffee — stay for the room that remembers.</p>
         <div class="heritage reveal d3">
-          <div><span>1900s</span><small>The Village Bank</small></div>
-          <div><span>Est. 2026</span><small>The Merchant Café</small></div>
-          <div><span>100%</span><small>Pottersville Local</small></div>
+          <div><span>1890</span><small>Lindabery General Store</small></div>
+          <div><span>1900</span><small>Village Post Office</small></div>
+          <div><span>2026</span><small>The Merchant Café</small></div>
         </div>
       </div>
     </div>
@@ -234,10 +237,10 @@
 <section class="gallery">
   <div class="wrap">
     <div class="gal-grid">
-      <div class="reveal d1"><img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=600&q=80&auto=format&fit=crop" alt="Latte art"></div>
-      <div class="reveal d2"><img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600&q=80&auto=format&fit=crop" alt="Cafe table"></div>
-      <div class="reveal d3"><img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600&q=80&auto=format&fit=crop" alt="Pastries"></div>
-      <div class="reveal d4"><img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=600&q=80&auto=format&fit=crop" alt="Coffee beans"></div>
+      <div class="reveal-img d1"><img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=600&q=80&auto=format&fit=crop" alt="Latte art"></div>
+      <div class="reveal-img d2"><img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600&q=80&auto=format&fit=crop" alt="Cafe table"></div>
+      <div class="reveal-img d3"><img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600&q=80&auto=format&fit=crop" alt="Pastries"></div>
+      <div class="reveal-img d4"><img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=600&q=80&auto=format&fit=crop" alt="Coffee beans"></div>
     </div>
   </div>
 </section>
@@ -299,7 +302,7 @@
 <script>
   document.documentElement.classList.add('js');
   (function(){
-    var reveals = document.querySelectorAll('.reveal');
+    var reveals = document.querySelectorAll('.reveal, .reveal-img');
     if(location.hash === '#static'){
       reveals.forEach(function(el){ el.classList.add('in'); });
     } else if('IntersectionObserver' in window){
