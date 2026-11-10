@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#ECE3CC; --paper2:#E4D8BB; --cream:#F6EFDD;
+    --paper:#F4E7D0; --paper2:#EADDC0; --cream:#F7F0DD;
     --ink:#28201A; --ink2:#4A3B2C; --brown:#33261A;
     --sepia:#9B7A4E; --sepia-deep:#795B35; --muted:#8A7557;
     --line:rgba(40,32,26,.16);
@@ -70,7 +70,9 @@
   .hero-meta{margin-top:26px;font-size:13.5px;letter-spacing:.04em;color:var(--ink2);display:flex;gap:20px;flex-wrap:wrap}
   .hero-meta span{display:flex;align-items:center;gap:8px}
   .dot{width:5px;height:5px;border-radius:50%;background:var(--sepia);display:inline-block}
-  .hero-art img{width:100%;display:block;mix-blend-mode:multiply;animation:floaty 7s ease-in-out infinite}
+  .hero-art img{width:100%;display:block;animation:floaty 7s ease-in-out infinite;
+    -webkit-mask-image:radial-gradient(ellipse 98% 99% at 50% 50%,#000 80%,transparent 100%);
+    mask-image:radial-gradient(ellipse 98% 99% at 50% 50%,#000 80%,transparent 100%)}
 
   /* SECTION */
   section{padding:104px 0}
